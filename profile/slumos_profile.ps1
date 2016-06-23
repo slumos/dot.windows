@@ -1,7 +1,7 @@
 $syncdir = "$HOME\ODfB\OneDrive - Microsoft"
 $mydir = "$syncdir\My"
 $psdir = "$my\PowerShell"
-$profdir = "$my\Profile"
+$profdir = "\\tsclient\local\projects\dot.windows\profile"
 $projdir = "$my\Projects"
 
 $anexp = "C:\AnExp"
@@ -29,51 +29,39 @@ function addpath($dir) {
 
 addpath "$mydir\bin"
 
-# posh-git: powershell git prompt
-#Import-Module "$ps/posh-git/posh-git"
-#Enable-Gitcolors
-#
-#function prompt {
-#  $last_exit_code_saved = $LASTEXITCODE
-#  $prompt_string = "$((get-date).toString('T')) $(get-location) $last_exit_code_saved"
-#  $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
-#  Write-Host($prompt_string) -nonewline
-#  Write-VcsStatus
-#
-#  return "> "
-#}
+# Import-Module posh-git
+# function global:prompt {
+#   $savedLASTEXITCODE = $LASTEXITCODE
+#   Write-Host ($pwd.ProviderPath) -nonewline
+# #  Write-VcsStatus
+#   $global:LASTEXITCODE = $savedLASTEXITCODE
+#   return "> "
+# }
 
-function prompt {
-  $last_exit_code_saved = $LASTEXITCODE
-  $prompt_string = "$((get-date).toString('T')) $(get-location) $last_exit_code_saved"
-  return "$prompt_string>"
-}
+# function global:prompt {
+#   $savedLASTEXITCODE = $LASTEXITCODE
+#   $now = Get-Date
+#   $time_string = $now.toString("%d") + $now.toString("MMM") + $now.toString("T")
 
-Import-Module Pscx
-#. (Join-Path "$psdir" pscx.overrides.ps1)
+# }
+
+Import-Module Pscx -arg "$profdir\Pscx.UserPreferences.ps1"
 
 if ($host.name -eq 'ConsoleHost') {
   Import-Module PSReadline
   Set-PSReadlineOption `
     -EditMode emacs `
     -MaximumHistoryCount 100000 `
-    -HistoryNoDuplicates true `
-    -HistorySavePath "$profiledir\powershell_history" `
+    -HistoryNoDuplicates `
+    -HistorySavePath "$profdir\powershell_history"
 }
 
-# function df ( $Path ) {
-#   if ( !$Path ) { $Path = (Get-Location -PSProvider FileSystem).ProviderPath }
-#   $Drive = (Get-Item $Path).Root -replace "\\"
-#   $Output = Get-WmiObject -Query "select freespace from win32_logicaldisk where deviceid = `'$drive`'"
-#   Write-Output "$($Output.FreeSpace / 1mb) MB"
-# }
-
-#function save-history {
-#  get-history -count (32KB-1) |
-#    group CommandLine |
-#    foreach {$_.Group[0]} |
-#    export-clixml $history_path
-#}
+function df ( $Path ) {
+  if ( !$Path ) { $Path = (Get-Location -PSProvider FileSystem).ProviderPath }
+  $Drive = (Get-Item $Path).Root -replace "\\"
+  $Output = Get-WmiObject -Query "select freespace from win32_logicaldisk where deviceid = `'$drive`'"
+  format-byte $Output.FreeSpace
+}
 
 function which($command) {
   get-command $command -all | select path
@@ -91,11 +79,5 @@ function be {
   ruby.exe -S bundle exec $args
 }
 
-#Register-EngineEvent PowerShell.Exiting { save-history } -SupportEvent
-
-#if (test-path $history_path) {
-#  import-clixml $history_path | add-history
-#}
-
 # Adds CommandLine property to ps output
-Update-TypeData "$ps\System.Diagnostics.Process.ps1xml"
+#Update-TypeData "$ps\System.Diagnostics.Process.ps1xml"
