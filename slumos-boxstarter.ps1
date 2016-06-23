@@ -19,6 +19,7 @@ $PSDefaultParameterValues["Install-Package:Force"] = $true
 Install-Package boxstarter
 Import-Module Boxstarter.WinConfig
 
+# Windows options
 Install-WindowsUpdate -acceptEula -SuppressReboots
 
 Set-WindowsExplorerOptions `
@@ -36,6 +37,12 @@ Disable-BingSearch
 # Can't run IE without UAC :-\
 #Disable-UAC
 Disable-MicrosoftUpdate
+
+$settings = (Get-UICulture)
+$settings.DateTimeFormat.LongTimePattern = 'H:mm:ss'
+$settings.DateTimeFormat.ShortTimePattern = 'H:mm'
+Set-UICulture $settings
+
 
 # Packages that are reasonable or some awesomely
 # chocolatey person made them so
@@ -55,8 +62,10 @@ Install-Package skyfonts
 Install-Package Git-Credential-Manager-for-Windows
 Install-Package wox
 
+Install-Package win32-openssh
+
 # Packages that require licensing
-# LINQPad: VAMH3-2U5P2
+# LINQPad: VAMH3-2U5P2 - How can this be automated?
 Install-Package Linqpad5
 
 # Visual Studio, the bear of unhelpful install grrr
@@ -78,3 +87,5 @@ webpicmd.exe /Install /Products:Vs2015AzurePack.2.8 /SuppressReboot /AcceptEula 
 
 # TODO
 # 1. CodeFlow
+
+
