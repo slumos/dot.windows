@@ -1,3 +1,6 @@
+$Boxstarter.RebootOk=$true
+$Boxstarter.AutoLogin=$true
+
 # Block narrator because omfg
 if (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe")) {
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe" -Type Folder | Out-Null
@@ -66,7 +69,6 @@ Install-Package Linqpad5
 Start-Process -Wait `
   -FilePath "\\products\public\PRODUCTS\Developers\Visual Studio 2015\Enterprise 2015.2\vs_enterprise.exe" `
   -ArgumentList "/quiet /norestart /installselectableitems ProgrammingLanguages_Group;WindowsPlatformDevelopment_GroupV1;Node.js;GitForWindows;GitHubVS"
-
 
 # The Azure .NET SDK will not see VS2015 until after a reboot. BECAUSE
 # WHY WOULD IT??
