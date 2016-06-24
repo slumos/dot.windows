@@ -1,0 +1,1 @@
+start http://boxstarter.org/package/nr/url?https://gist.githubusercontent.com/slumos/15c5f84211ec4b9edbb80bfad6640270/raw/9ddc0b9513d7c44937c56412713ddc17982b55ee/slumos-boxstarter.ps1

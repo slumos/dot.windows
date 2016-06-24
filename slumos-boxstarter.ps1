@@ -9,15 +9,12 @@ Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File 
 # Turn off accessibility hotkeys
 Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
 
-
 Install-PackageProvider -Force Chocolatey
 Import-PackageProvider Chocolatey
 
 # This is one of those lovable things about PoSH
 $PSDefaultParameterValues["Install-Package:Force"] = $true
-
-Install-Package boxstarter
-Import-Module Boxstarter.WinConfig
+$PSDefaultParameterValues["Install-Package:Verbose"] = $true
 
 # Windows options
 Install-WindowsUpdate -acceptEula -SuppressReboots
