@@ -1,7 +1,7 @@
 $syncdir = "$HOME\ODfB\OneDrive - Microsoft"
 $mydir = "$syncdir\My"
 $psdir = "$my\PowerShell"
-$profdir = "\\tsclient\local\projects\dot.windows\profile"
+$profdir = "$env:appdata\dot.windows\profile"
 $projdir = "$my\Projects"
 
 $anexp = "C:\AnExp"
