@@ -1,10 +1,10 @@
 $syncdir = "$HOME\ODfB\OneDrive - Microsoft"
 $mydir = "$syncdir\My"
 $psdir = "$my\PowerShell"
-$profdir = "$env:appdata\dot.windows\profile"
+$profdir = (Split-Path $profile)
 $projdir = "$my\Projects"
 
-$anexp = "C:\AnExp"
+$anexp = "C:\Projects\AnExp"
 $avocado = "$proj\Avocado"
 
 function addpath($dir) {
@@ -30,14 +30,6 @@ function addpath($dir) {
 addpath "$mydir\bin"
 
 Import-Module posh-git
-#function global:prompt {
-#  $savedLASTEXITCODE = $LASTEXITCODE
-#  Write-Host ($pwd.ProviderPath) -nonewline
-#  Write-VcsStatus
-#  $global:LASTEXITCODE = $savedLASTEXITCODE
-#  return "> "
-#}
-
 function global:prompt {
   $savedLASTEXITCODE = $LASTEXITCODE
   $now = Get-Date
@@ -83,4 +75,4 @@ function be {
 }
 
 # Adds CommandLine property to ps output
-#Update-TypeData "$ps\System.Diagnostics.Process.ps1xml"
+Update-TypeData "$profdir\System.Diagnostics.Process.ps1xml"
