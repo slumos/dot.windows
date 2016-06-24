@@ -29,21 +29,24 @@ function addpath($dir) {
 
 addpath "$mydir\bin"
 
-# Import-Module posh-git
-# function global:prompt {
-#   $savedLASTEXITCODE = $LASTEXITCODE
-#   Write-Host ($pwd.ProviderPath) -nonewline
-# #  Write-VcsStatus
-#   $global:LASTEXITCODE = $savedLASTEXITCODE
-#   return "> "
-# }
+Import-Module posh-git
+#function global:prompt {
+#  $savedLASTEXITCODE = $LASTEXITCODE
+#  Write-Host ($pwd.ProviderPath) -nonewline
+#  Write-VcsStatus
+#  $global:LASTEXITCODE = $savedLASTEXITCODE
+#  return "> "
+#}
 
-# function global:prompt {
-#   $savedLASTEXITCODE = $LASTEXITCODE
-#   $now = Get-Date
-#   $time_string = $now.toString("%d") + $now.toString("MMM") + $now.toString("T")
-
-# }
+function global:prompt {
+  $savedLASTEXITCODE = $LASTEXITCODE
+  $now = Get-Date
+  $time_string = $now.toString("%d") + $now.toString("MMM") + " " + $now.toString("T")
+  Write-Host "$time_string $($pwd.ProviderPath)" -nonewline
+  Write-VcsStatus
+  Write-Host " $savedLASTEXITCODE" -nonewline
+  return "> "
+}
 
 Import-Module Pscx -arg "$profdir\Pscx.UserPreferences.ps1"
 
