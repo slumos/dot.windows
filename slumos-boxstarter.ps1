@@ -1,5 +1,3 @@
-Set-ExecutionPolicy Unrestricted -Force
-
 # Block narrator because omfg
 if (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe")) {
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe" -Type Folder | Out-Null
@@ -17,7 +15,7 @@ $PSDefaultParameterValues["Install-Package:Force"] = $true
 $PSDefaultParameterValues["Install-Package:Verbose"] = $true
 
 # Windows options
-Install-WindowsUpdate -acceptEula -SuppressReboots
+#Install-WindowsUpdate -acceptEula -SuppressReboots
 
 Set-WindowsExplorerOptions `
   -EnableShowHiddenFilesFoldersDrives `
@@ -35,11 +33,11 @@ Disable-BingSearch
 #Disable-UAC
 Disable-MicrosoftUpdate
 
-$settings = (Get-UICulture)
-$settings.DateTimeFormat.LongTimePattern = 'H:mm:ss'
-$settings.DateTimeFormat.ShortTimePattern = 'H:mm'
-Set-UICulture $settings
-
+# Don't remember where I saw this, but there is no sure thing as Set-UICulture :-(
+# $settings = (Get-UICulture)
+# $settings.DateTimeFormat.LongTimePattern = 'H:mm:ss'
+# $settings.DateTimeFormat.ShortTimePattern = 'H:mm'
+# Set-UICulture $settings
 
 # Packages that are reasonable or some awesomely
 # chocolatey person made them so
@@ -50,14 +48,13 @@ Install-Package git
 Install-Package pt
 Install-Package PSReadline
 Install-Package Pscx -source PSGallery
-Install-Package poshgit -source PSGallery
+Install-Package poshgit -source chocolatey
 Install-Package posh-vs
 Install-Package nodejs
 Install-Package npm
 Install-Package GoogleChrome
 Install-Package skyfonts
 Install-Package Git-Credential-Manager-for-Windows
-Install-Package wox
 
 Install-Package win32-openssh
 
@@ -73,16 +70,12 @@ Start-Process -Wait `
 
 # The Azure .NET SDK will not see VS2015 until after a reboot. BECAUSE
 # WHY WOULD IT??
-Invoke-Reboot
+if (Test-PendingReboot) { Invoke-Reboot }
 
 # Then we install the SDK... which VS2015 will not see until after
 # another reboot. For real? Why are we so weak?
-Install-Package 
+Install-Package 'Microsoft Web Platform Installer'
 webpicmd.exe /Install /Products:Vs2015AzurePack.2.8 /SuppressReboot /AcceptEula /IISExpress /Verbose
 
-# Error		All projects referencing CosmosBridge.csproj must install nuget package Microsoft.Bcl.Build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317569.	AzureDeployLocal	C:\Users\slumos\Source\Repos\cosmos-bridge\lib\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets	243	
-
-# TODO
-# 1. CodeFlow
-
+if (Test-PendingReboot) { Invoke-Reboot }
 
