@@ -1,5 +1,7 @@
-$syncdir = "$HOME\ODfB\OneDrive - Microsoft"
-$mydir = "$syncdir\My"
+$syncdir = "$HOME\Sync"
+$oddir = "$syncdir\OneDrive - Microsoft"
+$wfdir = "$syncdir\WF"
+$mydir = "$wfdir\My"
 $psdir = "$my\PowerShell"
 $profdir = (Split-Path $profile)
 $projdir = "$my\Projects"
@@ -76,3 +78,9 @@ function be {
 
 # Adds CommandLine property to ps output
 Update-TypeData "$profdir\System.Diagnostics.Process.ps1xml"
+
+# Chocolatey profile
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
