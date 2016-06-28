@@ -2,6 +2,7 @@ $Boxstarter.RebootOk=$true
 $Boxstarter.AutoLogin=$true
 
 # Block narrator because omfg
+Write-BoxstarterMessage "Accessibility settings"
 if (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe")) {
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe" -Type Folder | Out-Null
 }
@@ -10,6 +11,8 @@ Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File 
 # Turn off accessibility hotkeys
 Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
 
+Write-BoxstarterMessage "Installing Chocolatey"
+iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
 Install-PackageProvider -Force Chocolatey
 Import-PackageProvider Chocolatey
 
@@ -18,8 +21,10 @@ $PSDefaultParameterValues["Install-Package:Force"] = $true
 $PSDefaultParameterValues["Install-Package:Verbose"] = $true
 
 # Windows options
+Write-BoxstarterMessage "Updating Windows (it's Tuesday somewhere, right?)"
 #Install-WindowsUpdate -acceptEula -SuppressReboots
 
+Write-BoxstarterMessage "Explorer options"
 Set-WindowsExplorerOptions `
   -EnableShowHiddenFilesFoldersDrives `
   -EnableShowProtectedOSFiles `
@@ -32,10 +37,6 @@ Set-TaskbarOptions -Size Small -Lock -Dock Bottom -Combine Always
 Disable-GameBarTips
 Disable-BingSearch
 
-# Can't run IE without UAC :-\
-#Disable-UAC
-Disable-MicrosoftUpdate
-
 # Don't remember where I saw this, but there is no sure thing as Set-UICulture :-(
 # $settings = (Get-UICulture)
 # $settings.DateTimeFormat.LongTimePattern = 'H:mm:ss'
@@ -44,8 +45,10 @@ Disable-MicrosoftUpdate
 
 # Packages that are reasonable or some awesomely
 # chocolatey person made them so
+Write-BoxstarterMessage "Packages packages packages"
 Install-Package conemu
 Install-Package emacs64
+Install-Package f.lux
 Install-Package vim -source chocolatey
 Install-Package git
 Install-Package pt
@@ -62,7 +65,6 @@ Install-Package Git-Credential-Manager-for-Windows
 Install-Package win32-openssh
 
 # Packages that require licensing
-# LINQPad: VAMH3-2U5P2 - How can this be automated?
 Install-Package Linqpad5
 
 # Visual Studio, the bear of unhelpful install grrr
