@@ -1,9 +1,8 @@
-+CapsLock::CapsLock
-CapsLock::Ctrl
+SetCapslockState AlwaysOff
 
-if (A_ComputerName = "MININT-AKB3VD9") {
-  +Home::Home
-  Home::Ctrl
-  +End::End
-  End::Ctrl
-}
+*Home::SendInput {LCtrl Down}
+*Home Up::SendInput {LCtrl Up}
+*End::SendInput {LCtrl Down}
+*End Up::SendInput {LCtrl Up}
+^a::SendInput {Home}
+^e::SendInput {End}
