@@ -5,6 +5,8 @@ $mydir = "$wfdir\My"
 $psdir = "$my\PowerShell"
 $profdir = (Split-Path $profile)
 $projdir = "$my\Projects"
+$startmenudir = [Environment]::GetFolderPath('StartMenu')
+$startupdir = "$startmenudir\Programs\Startup"
 
 $anexp = "C:\Projects\AnExp"
 $avocado = "$proj\Avocado"
