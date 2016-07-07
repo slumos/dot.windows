@@ -10,6 +10,7 @@ $startupdir = "$startmenudir\Programs\Startup"
 
 $anexp = "C:\Projects\AnExp"
 $avocado = "$proj\Avocado"
+$bct = "$anexp\private\bct"
 
 function addpath($dir) {
   $path = $env:path.split(';')
