@@ -61,6 +61,7 @@ Install-Package npm
 Install-Package GoogleChrome
 Install-Package skyfonts
 Install-Package Git-Credential-Manager-for-Windows
+Install-Package sparkleshare
 
 Install-Package win32-openssh
 
