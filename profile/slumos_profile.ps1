@@ -42,6 +42,7 @@ function global:prompt {
   Write-Host "$time_string $($pwd.ProviderPath)" -nonewline
   Write-VcsStatus
   Write-Host " $savedLASTEXITCODE" -nonewline
+  [Console]::ResetColor()
   return "> "
 }
 
