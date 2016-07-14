@@ -1,37 +1,14 @@
-#InstallKeybdHook
-#UseHook
-
+SendMode Input
 SetCapslockState AlwaysOff
-SetKeyDelay 0
+#NoEnv
+#SingleInstance Force
 
+#Include <dual>
+dual := new Dual
 
-*Home::SendInput {LCtrl Down}
-*Home Up::SendInput {LCtrl Up}
-*End::SendInput {LCtrl Down}
-*End Up::SendInput {LCtrl Up}
+*Home::
+*Home UP::dual.combine("LCtrl", A_ThisHotkey)
 
-emacs_like() {
-  IfWinActive, ahk_class ConsoleWindowClass
-    Return 1
-  IfWinActive, ahk_class ConEmu
-    Return 1
-  IfWinActive, ahk_class Emacs
-    Return 1
-
-  Return 0
-}
-
-^a::
-If emacs_like()
-  Send %A_ThisHotKey%
-Else
-  SendInput {Home}
-Return
-
-^e::
-If emacs_like()
-  Send %A_ThisHotKey%
-Else
-  SendInput {End}
-Return
+*End::
+*End Up::dual.combine("LCtrl", A_ThisHotkey)
 
