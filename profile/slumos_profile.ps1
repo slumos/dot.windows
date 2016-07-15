@@ -34,18 +34,6 @@ function addpath($dir) {
 
 addpath "$mydir\bin"
 
-Import-Module posh-git
-function global:prompt {
-  $savedLASTEXITCODE = $LASTEXITCODE
-  $now = Get-Date
-  $time_string = $now.toString("%d") + $now.toString("MMM") + " " + $now.toString("T")
-  Write-Host "$time_string $($pwd.ProviderPath)" -nonewline
-  Write-VcsStatus
-  Write-Host " $savedLASTEXITCODE" -nonewline
-  [Console]::ResetColor()
-  return "> "
-}
-
 Import-Module Pscx -arg "$profdir\Pscx.UserPreferences.ps1"
 
 if ($host.name -eq 'ConsoleHost') {
@@ -62,6 +50,10 @@ function df ( $Path ) {
   $Drive = (Get-Item $Path).Root -replace "\\"
   $Output = Get-WmiObject -Query "select freespace from win32_logicaldisk where deviceid = `'$drive`'"
   format-byte $Output.FreeSpace
+}
+
+function mem {
+  Get-Counter -ComputerName localhost '\Memory\Available MBytes' | Format-Byte
 }
 
 function which($command) {
@@ -88,3 +80,5 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
+
+. $profdir\slumos-prompt.ps1
