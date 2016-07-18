@@ -82,3 +82,4 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 . $profdir\slumos-prompt.ps1
+. $profdir\slumos-util.ps1
