@@ -1,6 +1,6 @@
 $syncdir = "$HOME\Sync"
 $oddir = "$syncdir\OneDrive - Microsoft"
-$wfdir = "$syncdir\WF"
+$wfdir = "C:\WF"
 $mydir = "$wfdir\My"
 $psdir = "$my\PowerShell"
 $profdir = (Split-Path $profile)
