@@ -92,7 +92,7 @@ else {
 # Then we install the SDK... which VS2015 will not see until after
 # another reboot. For real? Why are we so weak?
 cinst webpi
-"C:\Program Files\Microsoft\Web Platform Installer\WebpiCmd-x64.exe" /Install /Products:Vs2015AzurePack.2.8 /SuppressReboot /AcceptEula /IISExpress /Verbose
+C:\Program Files\Microsoft\Web Platform Installer\WebpiCmd-x64.exe /Install /Products:Vs2015AzurePack.2.8 /SuppressReboot /AcceptEula /IISExpress /Verbose
 
 # if (Test-PendingReboot) { Invoke-Reboot }
 
