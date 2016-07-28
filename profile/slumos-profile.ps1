@@ -14,6 +14,8 @@ $bct = "$expman\bct"
 $avocado = "$proj\Avocado"
 $bct = "$anexp\private\bct"
 
+del alias:curl
+
 function addpath($dir) {
   $path = $env:path.split(';')
 
