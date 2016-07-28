@@ -49,12 +49,14 @@ Disable-BingSearch
 # Packages that are reasonable or some awesomely
 # chocolatey person made them so
 Write-BoxstarterMessage "Packages packages packages"
+cinst pt
+cinst emacs64
+
 Install-Package conemu
 Install-Package emacs64
 Install-Package f.lux
 Install-Package vim -source chocolatey
 Install-Package git
-Install-Package pt
 Install-Package PSReadline
 Install-Package Pscx -source PSGallery
 Install-Package posh-git -source chocolatey
@@ -75,7 +77,7 @@ Install-Package Linqpad5
 if (!(test-path "${env:ProgramFiles(x86)}\Microsoft Visual Studio 14.0\")) {
   Write-BoxstarterMessage "Start Visual Studio 2015 install."
   Start-Process -Wait `
-    -FilePath "\\products\public\PRODUCTS\Developers\Visual Studio 2015\Enterprise 2015.2\vs_enterprise.exe" `
+    -FilePath "\\products\public\PRODUCTS\Developers\Visual Studio 2015\Enterprise 2015\vs_enterprise.exe" `
     -ArgumentList "/passive /norestart /installselectableitems CommonTools_Group;Windows10_Group;NativeLanguageSupport_Group;ProgrammingLanguages_Group;WindowsPlatformDevelopment_GroupV1;Node.js;GitForWindows;GitHubVS"
 
   # The Azure .NET SDK will not see VS2015 until after a reboot. BECAUSE
@@ -88,8 +90,8 @@ else {
 
 # Then we install the SDK... which VS2015 will not see until after
 # another reboot. For real? Why are we so weak?
-Install-Package webpi
-webpicmd.exe /Install /Products:Vs2015AzurePack.2.8 /SuppressReboot /AcceptEula /IISExpress /Verbose
+cinst webpi
+"C:\Program Files\Microsoft\Web Platform Installer\WebpiCmd-x64.exe" /Install /Products:Vs2015AzurePack.2.8 /SuppressReboot /AcceptEula /IISExpress /Verbose
 
 # if (Test-PendingReboot) { Invoke-Reboot }
 
