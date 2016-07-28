@@ -54,7 +54,7 @@ Install-Package git
 Install-Package pt
 Install-Package PSReadline
 Install-Package Pscx -source PSGallery
-Install-Package poshgit -source chocolatey
+Install-Package posh-git -source chocolatey
 Install-Package posh-vs
 Install-Package nodejs
 Install-Package npm
@@ -73,11 +73,11 @@ if (!(test-path "${env:ProgramFiles(x86)}\Microsoft Visual Studio 14.0\")) {
   Write-BoxstarterMessage "Start Visual Studio 2015 install."
   Start-Process -Wait `
     -FilePath "\\products\public\PRODUCTS\Developers\Visual Studio 2015\Enterprise 2015.2\vs_enterprise.exe" `
-    -ArgumentList "/quiet /norestart /installselectableitems ProgrammingLanguages_Group;WindowsPlatformDevelopment_GroupV1;Node.js;GitForWindows;GitHubVS"
+    -ArgumentList "/passive /norestart /installselectableitems CommonTools_Group;Windows10_Group;NativeLanguageSupport_Group;ProgrammingLanguages_Group;WindowsPlatformDevelopment_GroupV1;Node.js;GitForWindows;GitHubVS"
 
   # The Azure .NET SDK will not see VS2015 until after a reboot. BECAUSE
   # WHY WOULD IT??
-  if (Test-PendingReboot) { Invoke-Reboot }
+  # if (Test-PendingReboot) { Invoke-Reboot }
 }
 else {
   Write-BoxstarterMessage "Visual Studio 2015 already installed."
@@ -88,5 +88,5 @@ else {
 Install-Package webpi
 webpicmd.exe /Install /Products:Vs2015AzurePack.2.8 /SuppressReboot /AcceptEula /IISExpress /Verbose
 
-if (Test-PendingReboot) { Invoke-Reboot }
+# if (Test-PendingReboot) { Invoke-Reboot }
 
