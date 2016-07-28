@@ -52,6 +52,7 @@ Write-BoxstarterMessage "Packages packages packages"
 cinst autohotkey
 cinst emacs64
 cinst pt
+cinst slack
 
 Install-Package conemu
 Install-Package emacs64
