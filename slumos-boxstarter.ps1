@@ -11,6 +11,9 @@ Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File 
 # Turn off accessibility hotkeys
 Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
 
+# Why is this hard? WE LOG IN WITH PINs!!
+Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "InitialKeyboardIndicators" -Value 2
+
 Write-BoxstarterMessage "Installing Chocolatey"
 iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
 Install-PackageProvider -Force Chocolatey
