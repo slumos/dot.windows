@@ -49,8 +49,9 @@ Disable-BingSearch
 # Packages that are reasonable or some awesomely
 # chocolatey person made them so
 Write-BoxstarterMessage "Packages packages packages"
-cinst pt
+cinst autohotkey
 cinst emacs64
+cinst pt
 
 Install-Package conemu
 Install-Package emacs64
