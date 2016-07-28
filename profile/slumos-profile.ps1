@@ -9,6 +9,8 @@ $startmenudir = [Environment]::GetFolderPath('StartMenu')
 $startupdir = "$startmenudir\Programs\Startup"
 
 $anexp = "C:\Projects\AnExp"
+$expman = "$anexp\private\ExpMan"
+$bct = "$expman\bct"
 $avocado = "$proj\Avocado"
 $bct = "$anexp\private\bct"
 
