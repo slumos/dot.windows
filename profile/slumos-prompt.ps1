@@ -5,17 +5,31 @@ function Replace-EnvPrefix
     [string]$path
   )
 
-  $pathVars = Get-Variable |
-    where {is-pathvar $_}  |
-    sort @{Expression={$_.Value.Length}} -Descending
-
-  foreach ($var in $pathVars) {
-    if ($path.StartsWith($var.Value)) {
-      return $path.Replace($var.Value, "`$$($var.Name)")
-    }
+  $prefixVar = find-prefixVar((Get-Variable), $path)
+  if ($prefixVar) {
+    return $path.Replace($prefixVar.Value, '$'+$prefixVar.Name)
   }
 
+  $prefixVar = find-prefixVar((gci env:), $path)
+  if ($prefixVar) {
+    return $path.Replace($prefixVar.Value, '$'+$prefixVar.Name)
+  }
+  
   return $path
+}
+
+function find-prefixVar($vars, [string]$string)
+{
+  $pathVars = ($vars | where {is-pathvar $_} |
+    sort @{Expression={$_.Value.Length}} -Descending)
+  
+  foreach ($var in $pathVars) {
+#    write-host "'$string' -like '$($var.Value)*'"
+    if ($string -like "$($var.Value)*") {
+      return $var
+    }
+  }
+  return $false
 }
 
 function is-pathvar($var)
@@ -31,6 +45,12 @@ function is-pathvar($var)
 }
 
 Import-Module posh-git
+if ($env:ConEmuTask -eq '{AnExp}') {
+  $global:GitPromptSettings.EnableWindowTitle = "[AE] "
+}
+else {
+  $global:GitPromptSettings.EnableWindowTitle = ''
+}
 function global:prompt {
   $savedLASTEXITCODE = $LASTEXITCODE
   $now = Get-Date
