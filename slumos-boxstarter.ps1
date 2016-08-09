@@ -85,10 +85,10 @@ Install-Package Linqpad5
   # The Azure .NET SDK will not see VS2015 until after a reboot. BECAUSE
   # WHY WOULD IT??
   # if (Test-PendingReboot) { Invoke-Reboot }
-}
-else {
-  Write-BoxstarterMessage "Visual Studio 2015 already installed."
-}
+#}
+#else {
+#  Write-BoxstarterMessage "Visual Studio 2015 already installed."
+#}
 
 # Then we install the SDK... which VS2015 will not see until after
 # another reboot. For real? Why are we so weak?
