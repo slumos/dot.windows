@@ -20,7 +20,15 @@ function Replace-EnvPrefix
 
 function is-pathvar($var)
 {
-  if ($var.Name -in 'path', 'Error', 'PWD', '$', '^') { return $false }
+  $ignoredVars = @(
+    'path',
+    'Error',
+    'PWD',
+    '$',
+    '^'
+  )
+
+  if ($var.Name -in $ignoredVars) { return $false }
   try {
     if (Test-Path -EA Ignore $var.Value) { return $true }
   }
@@ -37,7 +45,10 @@ function global:prompt {
   $time_string = $now.toString("%d") + $now.toString("MMM") + " " + $now.toString("T")
   Write-Host "$time_string $(Replace-EnvPrefix $pwd.ProviderPath)" -nonewline
   Write-VcsStatus
-  Write-Host " $savedLASTEXITCODE" -nonewline
+  #Write-Host " $savedLASTEXITCODE" -nonewline
   [Console]::ResetColor()
+  if ($env:ConEmuTask -eq '{AnExp}') {
+    Write-Host '(AE)' -nonewline
+  }
   return "> "
 }

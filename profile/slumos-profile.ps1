@@ -4,14 +4,13 @@ $wfdir = "C:\WF"
 $mydir = "$wfdir\My"
 $psdir = "$my\PowerShell"
 $profdir = (Split-Path $profile)
-$projdir = "$my\Projects"
+$projdir = "$mydir\Projects"
 $startmenudir = [Environment]::GetFolderPath('StartMenu')
 $startupdir = "$startmenudir\Programs\Startup"
 
-$anexp = "C:\Projects\AnExp"
+$anexp = "$env:AEEnlistment"
 $expman = "$anexp\private\ExpMan"
 $bct = "$expman\bct"
-$avocado = "$proj\Avocado"
 $bct = "$anexp\private\bct"
 
 del alias:curl
