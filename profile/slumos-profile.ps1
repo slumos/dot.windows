@@ -1,3 +1,4 @@
+$emacsdir = "$env:APPDATA\.emacs.d"
 $syncdir = "$HOME\Sync"
 $oddir = "$syncdir\OneDrive - Microsoft"
 $wfdir = "C:\WF"
