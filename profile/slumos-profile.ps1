@@ -1,7 +1,9 @@
 $emacsdir = "$env:APPDATA\.emacs.d"
 $syncdir = "$HOME\Sync"
-$oddir = "$syncdir\OneDrive - Microsoft"
+$odbdir = "$syncdir\OneDrive - Microsoft"
+$oddir = "$syncdir\OneDrive"
 $wfdir = "C:\WF"
+$atdir = "$wfdir\AT"
 $mydir = "$wfdir\My"
 $psdir = "$my\PowerShell"
 $profdir = (Split-Path $profile)
@@ -13,6 +15,7 @@ $anexp = "$env:AEEnlistment"
 $expman = "$anexp\private\ExpMan"
 $bct = "$expman\bct"
 $bct = "$anexp\private\bct"
+$cosb = "$atdir\cosmos-bridge"
 
 del alias:curl
 
