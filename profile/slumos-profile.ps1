@@ -16,8 +16,12 @@ $expman = "$anexp\private\ExpMan"
 $bct = "$expman\bct"
 $bct = "$anexp\private\bct"
 $cosb = "$atdir\cosmos-bridge"
+$cosbc = "$atdir\cosmos_bridge_client"
+$sqlb = "$atdir\sqlbridgeclient-ruby"
 
-del alias:curl
+if (Test-Path alias:curl) {
+  del alias:curl
+}
 
 function addpath($dir) {
   $path = $env:path.split(';')
