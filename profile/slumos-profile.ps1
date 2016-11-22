@@ -19,6 +19,8 @@ $cosb = "$atdir\cosmos-bridge"
 $cosbc = "$atdir\cosmos_bridge_client"
 $sqlb = "$atdir\sqlbridgeclient-ruby"
 
+$env:PSModulePath = "$mydir\PowerShell\Modules;${env:PSModulePath}"
+
 if (Test-Path alias:curl) {
   del alias:curl
 }
