@@ -13,6 +13,7 @@ $startupdir = "$startmenudir\Programs\Startup"
 
 $anexp = "$env:AEEnlistment"
 $expman = "$anexp\private\ExpMan"
+$foray = "$anexp\private\Foray"
 $bct = "$expman\bct"
 $bct = "$anexp\private\bct"
 $cosb = "$atdir\cosmos-bridge"
