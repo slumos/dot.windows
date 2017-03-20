@@ -1,4 +1,4 @@
-$emacsdir = "$env:APPDATA\.emacs.d"
+﻿$emacsdir = "$env:APPDATA\.emacs.d"
 $syncdir = "$HOME\Sync"
 $odbdir = "$syncdir\OneDrive - Microsoft"
 $oddir = "$syncdir\OneDrive"
@@ -7,6 +7,7 @@ $atdir = "C:\AT"
 $mydir = "$wfdir\My"
 $psdir = "$my\PowerShell"
 $profdir = (Split-Path $profile)
+$windir = (Split-Path $profdir)
 $projdir = "$mydir\Projects"
 $startmenudir = [Environment]::GetFolderPath('StartMenu')
 $startupdir = "$startmenudir\Programs\Startup"
@@ -19,6 +20,10 @@ $bct = "$anexp\private\bct"
 $cosb = "$atdir\cosmos-bridge"
 $cosbc = "$atdir\cosmos_bridge_client"
 $sqlb = "$atdir\sqlbridgeclient-ruby"
+
+$foraydebug = "$anexp\target\distrib\debug\amd64\DataMining\Experimentation\Foray"
+
+$omnisharpPath = "C:\WF\My\Projects\OmniSharp-Roslyn\src\OmniSharp\bin\Release\net46"
 
 $env:PSModulePath = "$mydir\PowerShell\Modules;${env:PSModulePath}"
 
