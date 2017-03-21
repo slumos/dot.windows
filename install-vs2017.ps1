@@ -1,9 +1,6 @@
-
-
 # You are expected to edit this section with your preferences
 #$installPath = "$env:ProgramFiles\VS2017"
 $installPath = "C:\VS\2017"
-$lang = "en-US"
 
 $vsUrl = "https://aka.ms/vs_enterprise.exe"
 $vsPath = "$HOME\Downloads\vs_enterprise.exe"
@@ -26,17 +23,20 @@ if (Test-Path $installPath) {
   exit -1
 }
 
+# TODO Check .NET version 
+# Meh, I can't find a reliable method, maybe because my personal setup
+# is hosed.
+
 Write-Output "Installing to $installPath"
 mkdir $installPath | Out-Null
 pushd $installPath
 
 $vsOpts = @(
   "--installPath $installPath",
-  "--lang $lang",
   "--includeRecommended",
-  "--quiet",
   "--norestart",
-  "--wait"
+  "--wait",
+  "--quiet"
 ) + ($installIds | % {'--add ' + $_})
 
 $vsCmd = "$vsPath " + ($vsOpts -join ' ')
@@ -54,6 +54,7 @@ if (!(Test-Path $vsPath)) {
 
 Write-Output "About to run VS installer like:`
   $vsCmd"
+Write-Warning "Note: This will fail if you don't have .NET 4.5+..."
 
 $message = "That what you want?"
 $choices = [System.Management.Automation.Host.ChoiceDescription[]](
@@ -70,8 +71,14 @@ try {
 }
 catch {
   Write-Error "VS setup failed :-("
+  exit -1
 }
 
-Write-Output "VS setup appears to have succeeded, what!"
-Write-Warning "You probably have to restart now..."
-
+if ($? -eq 0) {
+  Write-Output "VS setup appears to have succeeded, what!"
+  Write-Warning "You probably have to restart now..."
+}
+else {
+  Write-Error "VS setup appears to have failed. :-( Not cleaning up so maybe you can debug."
+  exit -1
+}
