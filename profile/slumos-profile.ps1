@@ -11,6 +11,7 @@ $windir = (Split-Path $profdir)
 $projdir = "$mydir\Projects"
 $startmenudir = [Environment]::GetFolderPath('StartMenu')
 $startupdir = "$startmenudir\Programs\Startup"
+$workdir = "$mydir\Work"
 
 $anexp = "$env:AEEnlistment"
 $expman = "$anexp\private\ExpMan"
