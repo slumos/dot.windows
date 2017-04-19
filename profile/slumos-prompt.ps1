@@ -1,4 +1,3 @@
-
 function Replace-EnvPrefix
 {
   param(

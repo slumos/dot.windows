@@ -2,9 +2,8 @@
 $syncdir = "$HOME\Sync"
 $odbdir = "$syncdir\OneDrive - Microsoft"
 $oddir = "$syncdir\OneDrive"
-$wfdir = "C:\WF"
 $atdir = "C:\AT"
-$mydir = "$wfdir\My"
+$mydir = "$odbdir\My"
 $psdir = "$my\PowerShell"
 $profdir = (Split-Path $profile)
 $windir = (Split-Path $profdir)
@@ -12,7 +11,9 @@ $projdir = "$mydir\Projects"
 $startmenudir = [Environment]::GetFolderPath('StartMenu')
 $startupdir = "$startmenudir\Programs\Startup"
 $workdir = "$mydir\Work"
+$sftdir = "\\dataengsftower2\e$\slumos"
 
+$notesdir = "$oddir\My\Notes\Notes"
 $anexp = "$env:AEEnlistment"
 $expman = "$anexp\private\ExpMan"
 $foray = "$anexp\private\Foray"
@@ -24,12 +25,12 @@ $sqlb = "$atdir\sqlbridgeclient-ruby"
 
 $foraydebug = "$anexp\target\distrib\debug\amd64\DataMining\Experimentation\Foray"
 
-$omnisharpPath = "C:\WF\My\Projects\OmniSharp-Roslyn\src\OmniSharp\bin\Release\net46"
+$omnisharpPath = "$projdir\OmniSharp-x64-net46"
 
 $env:PSModulePath = "$mydir\PowerShell\Modules;${env:PSModulePath}"
 
 if (Test-Path alias:curl) {
-  del alias:curl
+  Remove-Item alias:curl
 }
 
 function addpath($dir) {
@@ -65,6 +66,14 @@ if ($host.name -eq 'ConsoleHost') {
     -HistorySavePath "$profdir\powershell_history"
 }
 
+function be {
+  ruby.exe -S bundle exec $args
+}
+
+function ec {
+  emacsclient -n $args
+}
+
 function df ( $Path ) {
   if ( !$Path ) { $Path = (Get-Location -PSProvider FileSystem).ProviderPath }
   $Drive = (Get-Item $Path).Root -replace "\\"
@@ -72,24 +81,30 @@ function df ( $Path ) {
   format-byte $Output.FreeSpace
 }
 
+function l {
+  if ($Args.Length -ne 1 -or ($Args.Length -eq 1 -and (Get-Item $Args[0]).PSIsContainer)) {
+    dir $Args
+  }
+  else {
+    less $Args
+  }
+}
+
 function mem {
   Get-Counter -ComputerName localhost '\Memory\Available MBytes' | Format-Byte
 }
 
-function which($command) {
-  get-command $command -all | select path
-}
-
-function ec {
-  emacsclient -n $args
+function magit {
+  $formattedPWD = $pwd.ProviderPath.Replace("\", "/")
+  emacsclient -ne "(magit-status-internal `"$formattedPWD`")"
 }
 
 function ts {
   get-date -format yyyyMMddTHHmmss
 }
 
-function be {
-  ruby.exe -S bundle exec $args
+function which($command) {
+  get-command $command -all | select path
 }
 
 # Adds CommandLine property to ps output
@@ -103,3 +118,4 @@ if (Test-Path($ChocolateyProfile)) {
 
 . $profdir\slumos-prompt.ps1
 . $profdir\slumos-util.ps1
+
